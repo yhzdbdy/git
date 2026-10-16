@@ -106,3 +106,35 @@ public:
         }
     }
 };
+
+//参数标记：v代表起始节点，visited数组标记当前节点是不是已经被访问过了
+//规则是入队之前就访问掉
+void BFS(Vertex head[], int v, int n, int visited[]) {
+    //队列
+    queue<int> que;
+    //初始化为全0
+    for(int i = 0; i < n; i++) {
+        visited[i] = 0;
+    }
+    //起点访问并且入队
+    cout << v << endl;
+    que.push(v);
+
+    //和二叉树的层次遍历是一样的
+    while(!que.empty()) {
+        //出队一个元素
+        int piont = que.front();
+        que.pop();
+
+        //由于入队前已经访问过了这里不用写if判断是否访问过
+        for(Edge* p = head[v].adjacent; p != nullptr; p = p -> next) {
+            //没访问过就访问并且入队
+            if(visited[p -> verAdj] == 0) {
+                cout << p -> verAdj << endl;
+                //标记访问过
+                visited[p -> verAdj] = 1;
+                que.push(p -> verAdj);
+            }
+        }
+    }   
+}
