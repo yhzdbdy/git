@@ -14,7 +14,7 @@ void DFS(int index) {
     //横向，每次只有两个选择，一个是填N，一个是填Y
 
     s[index] = 'N';
-    //用加一来隐藏回溯的实现
+    //由于这里是指针数组形式和vector不一样，直接用加一来隐藏回溯的实现
     DFS(index + 1);
 
     s[index] = 'Y';
