@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+using namespace std;
 int caculate(int a, int b, char c) {
 	if(c == '+') return a + b;
 	if(c == '-') return a - b;
