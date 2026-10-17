@@ -1,8 +1,11 @@
-/*代码随想录  岛屿问题四*/
+/*代码随想录  岛屿问题四，五*/
 /*
 我们需要寻找不和边界接触的岛屿
 直接从边界开始遍历，把和边界相连的岛屿全都变成0
 最后遍历整个图，累加为1的点
+
+对于寻找孤岛，我们也是先遍历和边界相连的岛，将它们变成2
+最后重新遍历整个图，碰到2变成1，碰到1变成0
 */
 
 #include<bits/stdc++.h>
@@ -26,7 +29,7 @@ void BFS(vector<vector<int>>& gragh, int x, int y) {
             int nextX = point.first + dx[i];
             int nextY = point.second + dy[i];
             if(nextX < 0 || nextX >= row || nextY < 0 || nextY >= col) continue;
-            if(gragh[nextX][nextY] == 1) {
+            if(gragh[nextX][nextY] = 1) {
                 gragh[nextX][nextY] = 0;
                 que.push({nextX, nextY});
             }
