@@ -2,6 +2,12 @@
 using namespace std;
 /* 我们使用邻接表来存储图 */
 
+/*
+有一个关键在于,
+用栈模拟深搜要记住出栈以后才访问,
+而用队列实现广搜时要入队之前就访问
+*/
+
 //顶点类
 class Edge;
 class Vertex {
@@ -42,6 +48,7 @@ void addEdge(Vertex vertex[], int from, int to, int cost) {
     if(vertex[from].adjacent == nullptr) {
         //如果他的边是空的，直接变成第一个边
         vertex[from].adjacent = adjacent;
+        return;
     }
 
     //如果非空，即这个顶点已经有边了
@@ -85,8 +92,11 @@ public:
     void dfsWithStack(Vertex* head, int vertex, int visited[]) {
         stack<int> st;
         //先压入第一个顶点
+        // cout << vertex;
+        // visited[vertex] = 1;
         st.push(vertex);
 
+        /*因此最好还是使用出栈才遍历元素,使用两个if来判断*/
         //栈非空时遍历
         while(!st.empty()) {
             int v = st.top();
@@ -103,6 +113,17 @@ public:
                     }
                 }
             }
+
+            /*以下写法会有一个问题,这里实现的其实是广搜逻辑,出一个栈,遍历所有边并且输出*/
+            //在访问前入栈
+            // for(Edge* cur = head[v].adjacent; cur != nullptr; cur = cur -> next) {
+            //     //没有访问过
+            //     if(visited[cur -> verAdj] == 0) {
+            //         cout << cur -> verAdj << endl;
+            //         visited[cur -> verAdj] = 1;
+            //         st.push(cur -> verAdj);
+            //     }
+            // }
         }
     }
 };
