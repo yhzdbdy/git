@@ -27,7 +27,34 @@ void DFS(vector<vector<int>>& graph, int x, int y, vector<vector<bool>>& visited
 }
 /*注意我们没有设置终止条件，我们递归的入口是有条件的，如果碰到0就会退出*/
 
-//
+//通过BFS来标记连续的陆地，记住队列是在入队之前就标记
+void BFS(vector<vector<int>>& gragh, vector<vector<bool>>& visited, int x, int y) {
+    queue<pair<int,int>> que;
+    visited[x][y] = true;
+    que.push({x, y});
+    int row = gragh.size();
+    int col = gragh[0].size();
+
+    //当队列非空
+    while(!que.empty()) {
+        auto point = que.front();
+        que.pop();
+
+        //四个方向
+        for(int i = 0; i < 4; i++) {
+            int nextX = point.first + dx[i];
+            int nextY = point.second + dy[i];
+            //判断是否越界
+            if(nextX < 0 || nextX >= row || nextY < 0 || nextY >= col) continue;
+            //如果是陆地并且没有访问过
+            if(gragh[nextX][nextY] == 1 && !visited[nextX][nextY]) {
+                //标记已访问，入队
+                visited[nextX][nextY] = true;
+                que.push({nextX, nextY});
+            }
+        }
+    }
+}
 
 int countIsland(vector<vector<int>>& graph, vector<vector<bool>>& visited) {
     int count = 0;
@@ -42,6 +69,7 @@ int countIsland(vector<vector<int>>& graph, vector<vector<bool>>& visited) {
                 visited[i][j] = true;
                 count++;
                 DFS(graph,i,j,visited);
+                BFS(graph, visited, i, j);
             }
         }
     }

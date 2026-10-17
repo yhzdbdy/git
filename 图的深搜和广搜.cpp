@@ -139,6 +139,7 @@ void BFS(Vertex head[], int v, int n, int visited[]) {
     }
     //起点访问并且入队
     cout << v << endl;
+    visited[v] = 1;
     que.push(v);
 
     //和二叉树的层次遍历是一样的
